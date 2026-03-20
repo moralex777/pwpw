@@ -1,0 +1,149 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradients -->
+    <radialGradient id="ogBg" cx="50%" cy="40%">
+      <stop offset="0%" style="stop-color:#1a0808;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#0a0505;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:1" />
+    </radialGradient>
+
+    <linearGradient id="goldText" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#8B7942;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#C5A55A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B7942;stop-opacity:1" />
+    </linearGradient>
+
+    <radialGradient id="glassGradient" cx="50%" cy="70%">
+      <stop offset="0%" style="stop-color:#8B3A44;stop-opacity:0.95" />
+      <stop offset="60%" style="stop-color:#722F37;stop-opacity:0.98" />
+      <stop offset="100%" style="stop-color:#3D0C11;stop-opacity:1" />
+    </radialGradient>
+
+    <linearGradient id="glassStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F5F0E8;stop-opacity:0.6" />
+      <stop offset="50%" style="stop-color:#C5A55A;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#F5F0E8;stop-opacity:0.6" />
+    </linearGradient>
+
+    <radialGradient id="centerGlow" cx="50%" cy="50%">
+      <stop offset="0%" style="stop-color:#722F37;stop-opacity:0.3" />
+      <stop offset="50%" style="stop-color:#3D0C11;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#0a0505;stop-opacity:0" />
+    </radialGradient>
+
+    <!-- Filters -->
+    <filter id="textGlow">
+      <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="shimmer">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#ogBg)"/>
+
+  <!-- Central glow -->
+  <circle cx="600" cy="315" r="400" fill="url(#centerGlow)" opacity="0.6" filter="url(#softGlow)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="600" cy="250" r="180" fill="#722F37" opacity="0.06"/>
+  <circle cx="400" cy="350" r="120" fill="#3D0C11" opacity="0.08"/>
+  <circle cx="800" cy="400" r="140" fill="#722F37" opacity="0.07"/>
+
+  <!-- Wine glass silhouette -->
+  <g transform="translate(600, 420)">
+    <!-- Glass glow -->
+    <ellipse cx="0" cy="0" rx="140" ry="140" fill="#C5A55A" opacity="0.08" filter="url(#softGlow)"/>
+
+    <!-- Glass base -->
+    <ellipse cx="0" cy="90" rx="40" ry="10" fill="#2a1515" opacity="0.9"/>
+
+    <!-- Glass stem -->
+    <rect x="-6" y="15" width="12" height="75" fill="#3D0C11" opacity="0.85"/>
+
+    <!-- Glass bowl outline -->
+    <path d="M -60 -30 Q -70 -15 -70 15 L -70 60 Q -70 75 -55 82 L -8 90 L 8 90 L 55 82 Q 70 75 70 60 L 70 15 Q 70 -15 60 -30 Z"
+          fill="none" stroke="url(#glassStroke)" stroke-width="2.5" opacity="0.7" filter="url(#shimmer)"/>
+
+    <!-- Wine in glass -->
+    <path d="M -65 20 L -65 60 Q -65 72 -53 78 L -8 85 L 8 85 L 53 78 Q 65 72 65 60 L 65 20 Z"
+          fill="url(#glassGradient)" opacity="0.9"/>
+
+    <!-- Wine surface -->
+    <ellipse cx="0" cy="20" rx="65" ry="12" fill="#8B3A44" opacity="0.6"/>
+
+    <!-- Glass highlights -->
+    <path d="M -55 -20 Q -58 5 -60 30" stroke="#F5F0E8" stroke-width="1.5" fill="none" opacity="0.35"/>
+    <path d="M -50 -15 Q -52 10 -54 35" stroke="#C5A55A" stroke-width="1" fill="none" opacity="0.25"/>
+    <path d="M 55 -20 Q 58 5 60 30" stroke="#F5F0E8" stroke-width="1.5" fill="none" opacity="0.3"/>
+
+    <!-- Glass rim -->
+    <ellipse cx="0" cy="-30" rx="62" ry="10" fill="url(#goldText)" opacity="0.8" filter="url(#shimmer)"/>
+    <ellipse cx="0" cy="-31" rx="62" ry="2.5" fill="#C5A55A" opacity="0.6"/>
+
+    <!-- Shine spots -->
+    <ellipse cx="-45" cy="5" rx="10" ry="28" fill="#F5F0E8" opacity="0.18" filter="url(#shimmer)"/>
+    <ellipse cx="48" cy="10" rx="8" ry="24" fill="#F5F0E8" opacity="0.15" filter="url(#shimmer)"/>
+  </g>
+
+  <!-- Main title -->
+  <text x="600" y="200" font-family="Georgia, serif" font-size="90" font-weight="bold"
+        text-anchor="middle" fill="url(#goldText)" filter="url(#textGlow)">
+    Polewaj. Wypij.
+  </text>
+
+  <!-- Title shadow/depth -->
+  <text x="600" y="200" font-family="Georgia, serif" font-size="90" font-weight="bold"
+        text-anchor="middle" fill="#C5A55A" opacity="0.3">
+    Polewaj. Wypij.
+  </text>
+
+  <!-- Subtitle -->
+  <text x="600" y="580" font-family="Georgia, serif" font-size="36" font-style="italic"
+        text-anchor="middle" fill="#8B7942" opacity="0.85" filter="url(#shimmer)">
+    In Vino Veritas
+  </text>
+
+  <!-- Decorative line above subtitle -->
+  <line x1="450" y1="555" x2="750" y2="555" stroke="#C5A55A" stroke-width="1.5" opacity="0.4"/>
+
+  <!-- Ambient light particles -->
+  <circle cx="300" cy="180" r="3" fill="#C5A55A" opacity="0.5" filter="url(#shimmer)"/>
+  <circle cx="900" cy="200" r="2.5" fill="#C5A55A" opacity="0.45" filter="url(#shimmer)"/>
+  <circle cx="500" cy="280" r="2" fill="#F5F0E8" opacity="0.35"/>
+  <circle cx="700" cy="290" r="2.5" fill="#C5A55A" opacity="0.4"/>
+  <circle cx="350" cy="420" r="2" fill="#8B7942" opacity="0.4"/>
+  <circle cx="850" cy="450" r="2.5" fill="#C5A55A" opacity="0.45" filter="url(#shimmer)"/>
+  <circle cx="250" cy="320" r="1.8" fill="#F5F0E8" opacity="0.3"/>
+  <circle cx="950" cy="340" r="2.2" fill="#C5A55A" opacity="0.42"/>
+  <circle cx="420" cy="150" r="2" fill="#8B7942" opacity="0.38"/>
+  <circle cx="780" cy="160" r="2.3" fill="#C5A55A" opacity="0.44" filter="url(#shimmer)"/>
+
+  <!-- Decorative corner elements -->
+  <circle cx="100" cy="100" r="60" fill="#722F37" opacity="0.05" filter="url(#softGlow)"/>
+  <circle cx="1100" cy="100" r="65" fill="#3D0C11" opacity="0.06" filter="url(#softGlow)"/>
+  <circle cx="100" cy="530" r="55" fill="#722F37" opacity="0.05" filter="url(#softGlow)"/>
+  <circle cx="1100" cy="530" r="58" fill="#3D0C11" opacity="0.06" filter="url(#softGlow)"/>
+
+  <!-- Additional depth elements -->
+  <ellipse cx="600" cy="200" rx="320" ry="40" fill="#C5A55A" opacity="0.04" filter="url(#softGlow)"/>
+  <ellipse cx="600" cy="420" rx="200" ry="150" fill="#722F37" opacity="0.06" filter="url(#softGlow)"/>
+</svg>

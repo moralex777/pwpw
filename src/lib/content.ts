@@ -26,7 +26,7 @@ export const quotes: Quote[] = [
   {
     text: "Miło szaleć, kiedy czas po temu, miło użyć świata, póki służy, bo kiedy do nas starość przyjdzie, nie wygna jej i Venus i Bachus.",
     author: "Jan Kochanowski",
-    source: "Pieśni, Księgi Wtóre, Pieśń IX",
+    source: "Pieśni, Księgi Pierwsze, Pieśń XX",
   },
   {
     text: "Kto nie pija, ten nie żyje, kto nie żyje, ten nie pija. A kto pija, ten się śmieje, a kto się śmieje, ten się nie starzeje.",

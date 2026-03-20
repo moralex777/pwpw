@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Playfair_Display } from "next/font/google";
 import "./globals.css";
+import PWARegister from "@/components/PWARegister";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,9 +21,11 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://polewajwypijpolewajwypij.pl"),
   title: "Polewaj. Wypij. Polewaj. Wypij.",
   description:
     "In Vino Veritas. Filozofia biesiadowania w literaturze i kulturze.",
+  manifest: "/manifest.json",
   openGraph: {
     title: "Polewaj. Wypij. Polewaj. Wypij.",
     description:
@@ -44,6 +47,12 @@ export const metadata: Metadata = {
     title: "Polewaj. Wypij. Polewaj. Wypij.",
     description: "In Vino Veritas. Filozofia biesiadowania.",
   },
+  other: {
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "black-translucent",
+    "apple-mobile-web-app-title": "PWPW",
+    "theme-color": "#722F37",
+  },
 };
 
 export default function RootLayout({
@@ -54,9 +63,13 @@ export default function RootLayout({
   return (
     <html
       lang="pl"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable}`}
     >
-      <body>{children}</body>
+      <body suppressHydrationWarning>
+        <PWARegister />
+        {children}
+      </body>
     </html>
   );
 }

@@ -15,26 +15,10 @@
   --font-mono: var(--font-geist-mono);
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
-}
-
-/* Scroll-triggered fade-in */
-.fade-section {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.fade-section.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 /* Gold divider */
@@ -67,9 +51,10 @@ body {
 .hero-gradient {
   background: linear-gradient(
     180deg,
-    rgba(10, 5, 5, 0.3) 0%,
-    rgba(10, 5, 5, 0.6) 40%,
-    rgba(10, 5, 5, 0.95) 100%
+    rgba(10, 5, 5, 0.05) 0%,
+    rgba(10, 5, 5, 0.15) 30%,
+    rgba(10, 5, 5, 0.4) 70%,
+    rgba(10, 5, 5, 0.85) 100%
   );
 }
 
