@@ -1,26 +1,84 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: #0a0505;
+  --color-foreground: #F5F0E8;
+  --color-wine: #722F37;
+  --color-wine-deep: #3D0C11;
+  --color-wine-dark: #1a0a0d;
+  --color-gold: #C5A55A;
+  --color-gold-dim: #8a7340;
+  --color-cream: #F5F0E8;
+  --color-cream-dim: #b8b0a3;
+  --font-serif: var(--font-playfair);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Scroll-triggered fade-in */
+.fade-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Gold divider */
+.gold-divider {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+  margin: 0 auto;
+}
+
+/* Wine glass decorative line */
+.wine-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(180deg, var(--color-gold), transparent);
+  margin: 0 auto;
+}
+
+/* Subtle shimmer on gold text */
+@keyframes shimmer {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+.gold-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Hero overlay gradient */
+.hero-gradient {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 5, 5, 0.3) 0%,
+    rgba(10, 5, 5, 0.6) 40%,
+    rgba(10, 5, 5, 0.95) 100%
+  );
+}
+
+/* Scroll indicator bounce */
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+.scroll-bounce {
+  animation: bounce-slow 2s ease-in-out infinite;
 }
