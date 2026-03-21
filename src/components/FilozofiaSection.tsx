@@ -1,118 +1,124 @@
-'use client'
-
-import { useRef } from 'react'
-import { motion, useScroll, useTransform, MotionValue } from 'framer-motion'
-import { filozofia } from '@/lib/content'
-
-function splitIntoWords(text: string) {
-  return text.split(' ').map((word, i, arr) => ({
-    word: word + (i < arr.length - 1 ? '\u00A0' : ''),
-    index: i,
-    total: arr.length,
-  }))
-}
-
-function useWordOpacity(
-  progress: MotionValue<number>,
-  principleIndex: number,
-  wordIndex: number,
-  totalWords: number
-) {
-  const start = principleIndex * 0.25
-  const wordFraction = wordIndex / (totalWords - 1 || 1)
-  return useTransform(
-    progress,
-    [start + wordFraction * 0.2, start + wordFraction * 0.25],
-    [0.15, 1]
-  )
-}
-
-// Fixed set of word components to avoid hooks-in-loops
-function WordSpan({
-  word,
-  progress,
-  principleIndex,
-  wordIndex,
-  totalWords,
-}: {
-  word: string
-  progress: MotionValue<number>
-  principleIndex: number
-  wordIndex: number
-  totalWords: number
-}) {
-  const opacity = useWordOpacity(progress, principleIndex, wordIndex, totalWords)
-  return <motion.span style={{ opacity }}>{word}</motion.span>
-}
+'use client';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { filozofia } from '@/lib/content';
 
 function PrincipleCard({
   principleIndex,
   progress,
 }: {
-  principleIndex: number
-  progress: MotionValue<number>
+  principleIndex: number;
+  progress: ReturnType<typeof useScroll>['scrollYProgress'];
 }) {
-  const principle = filozofia[principleIndex]
-  const words = splitIntoWords(principle.text)
+  const principle = filozofia[principleIndex];
+  const total = filozofia.length;
+  const segmentSize = 1 / total;
+  const start = principleIndex * segmentSize;
+  const fadeIn = start + 0.02;
+  const hold = start + segmentSize * 0.55;
+  const fadeOut = start + segmentSize * 0.9;
+  const end = (principleIndex + 1) * segmentSize;
 
-  const start = principleIndex * 0.25
-  const end = (principleIndex + 1) * 0.25
   const opacity = useTransform(
     progress,
-    [Math.max(0, start - 0.05), start, end - 0.05, Math.min(1, end)],
-    [0, 1, 1, 0]
-  )
+    [start, fadeIn, hold, fadeOut, end],
+    [0, 1, 1, 0, 0]
+  );
+  const scale = useTransform(progress, [start, fadeIn, hold], [0.94, 1, 1]);
+  const y = useTransform(progress, [start, fadeIn], [30, 0]);
+  const smoothOpacity = useSpring(opacity, { stiffness: 80, damping: 20 });
+  const smoothScale = useSpring(scale, { stiffness: 80, damping: 20 });
+
+  const words = principle.text.split(' ');
+  const wordCount = words.length;
 
   return (
     <motion.div
-      className="absolute inset-0 flex items-center justify-center px-8 md:px-16 lg:px-24 pointer-events-none"
-      style={{ opacity }}
+      style={{ opacity: smoothOpacity, scale: smoothScale, y }}
+      className="absolute inset-0 flex items-center justify-center px-6 md:px-16"
     >
-      <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-[180px_1fr] gap-8 lg:gap-16 items-start">
-        <div className="text-gold text-6xl md:text-7xl lg:text-8xl font-serif leading-none">
+      <div className="max-w-3xl w-full principle-frame rounded-sm p-8 md:p-14 relative">
+        {/* Corner ornaments */}
+        <span className="absolute top-3 left-3 text-gold opacity-30 text-lg select-none font-serif">✦</span>
+        <span className="absolute top-3 right-3 text-gold opacity-30 text-lg select-none font-serif">✦</span>
+        <span className="absolute bottom-3 left-3 text-gold opacity-30 text-lg select-none font-serif">✦</span>
+        <span className="absolute bottom-3 right-3 text-gold opacity-30 text-lg select-none font-serif">✦</span>
+
+        {/* Roman numeral */}
+        <motion.p
+          className="font-serif text-gold text-sm tracking-[0.4em] uppercase mb-2 opacity-60"
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 0.6, x: 0 }}
+          transition={{ delay: 0.1 }}
+        >
           {principle.number}
-        </div>
-        <div className="space-y-4">
-          <h3 className="text-gold text-2xl md:text-3xl font-serif mb-6">
-            {principle.title}
-          </h3>
-          <p className="text-cream text-lg md:text-xl leading-relaxed">
-            {words.map((w, i) => (
-              <WordSpan
-                key={`${principleIndex}-${i}`}
-                word={w.word}
-                progress={progress}
-                principleIndex={principleIndex}
-                wordIndex={i}
-                totalWords={words.length}
-              />
-            ))}
-          </p>
-        </div>
+        </motion.p>
+
+        {/* Title */}
+        <motion.h3
+          className="font-serif text-gold text-4xl md:text-6xl mb-6 gold-shimmer"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15, duration: 0.6 }}
+        >
+          {principle.title}
+        </motion.h3>
+
+        <div className="gold-divider mb-6" style={{ marginLeft: 0, width: '60px' }} />
+
+        {/* Word-by-word reveal */}
+        <p className="font-serif text-cream text-lg md:text-xl leading-relaxed">
+          {words.map((word, i) => {
+            const wordStart = fadeIn + (i / wordCount) * (hold - fadeIn) * 0.7;
+            const wordEnd = wordStart + 0.025;
+            const wordOpacity = useTransform(progress, [wordStart, wordEnd], [0, 1]);
+            const wordY = useTransform(progress, [wordStart, wordEnd], [8, 0]);
+            return (
+              <motion.span
+                key={i}
+                style={{ opacity: wordOpacity, y: wordY, display: 'inline-block', marginRight: '0.28em' }}
+              >
+                {word}
+              </motion.span>
+            );
+          })}
+        </p>
       </div>
     </motion.div>
-  )
+  );
 }
 
 export default function FilozofiaSection() {
-  const sectionRef = useRef<HTMLElement>(null)
+  const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end start'],
-  })
+  });
 
   return (
-    <section ref={sectionRef} className="relative h-[300vh] bg-wine-dark">
-      <div className="sticky top-0 h-screen flex items-center justify-center">
-        <h2 className="absolute top-12 left-8 md:left-16 text-gold text-4xl md:text-5xl font-serif">
-          Filozofia
-        </h2>
+    <section ref={sectionRef} className="relative h-[400vh] bg-wine-dark">
+      <div className="sticky top-0 h-screen overflow-hidden">
+        {/* Ambient wine stain */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="wine-stain" style={{ width: '700px', height: '700px', opacity: 0.05 }} />
+        </div>
 
-        <PrincipleCard principleIndex={0} progress={scrollYProgress} />
-        <PrincipleCard principleIndex={1} progress={scrollYProgress} />
-        <PrincipleCard principleIndex={2} progress={scrollYProgress} />
-        <PrincipleCard principleIndex={3} progress={scrollYProgress} />
+        {/* Section title — dramatic reveal */}
+        <motion.h2
+          className="absolute top-10 left-8 md:left-16 text-gold font-serif z-20"
+          style={{
+            fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+            opacity: useTransform(scrollYProgress, [0, 0.05], [0, 1]),
+            x: useTransform(scrollYProgress, [0, 0.05], [-20, 0]),
+          }}
+        >
+          Filozofia
+        </motion.h2>
+
+        {filozofia.map((_, i) => (
+          <PrincipleCard key={i} principleIndex={i} progress={scrollYProgress} />
+        ))}
       </div>
     </section>
-  )
+  );
 }

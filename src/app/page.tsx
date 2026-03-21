@@ -1,52 +1,102 @@
-import { geneza } from '@/lib/content'
-import HeroSection from '@/components/HeroSection'
-import RitualSection from '@/components/RitualSection'
-import QuotesSection from '@/components/QuotesSection'
-import FilozofiaSection from '@/components/FilozofiaSection'
-import ToastSection from '@/components/ToastSection'
+import { geneza } from '@/lib/content';
+import HeroSection from '@/components/HeroSection';
+import RitualSection from '@/components/RitualSection';
+import QuotesSection from '@/components/QuotesSection';
+import FilozofiaSection from '@/components/FilozofiaSection';
+import ToastSection from '@/components/ToastSection';
+import WyroczniaWiniarska from '@/components/WyroczniaWiniarska';
+import SlownikBiesiadnika from '@/components/SlownikBiesiadnika';
+import ScrollNavDots from '@/components/ScrollNavDots';
+import SiteFooter from '@/components/SiteFooter';
+
+function SectionDivider({ from, to }: { from: string; to: string }) {
+  return (
+    <div
+      className="h-16 w-full"
+      style={{ background: `linear-gradient(180deg, ${from} 0%, ${to} 100%)` }}
+    />
+  );
+}
 
 export default function Home() {
+  const paragraphs = geneza.split('\n\n');
+
   return (
     <>
-      <HeroSection />
+      <ScrollNavDots />
 
-      {/* Geneza Section */}
-      <section id="geneza" className="py-32 px-6 bg-wine-deep">
-        <div className="max-w-4xl mx-auto">
+      {/* Hero */}
+      <section id="hero">
+        <HeroSection />
+      </section>
+
+      {/* Geneza */}
+      <section id="geneza" className="py-32 px-6 bg-wine-deep relative overflow-hidden">
+        <div
+          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 wine-stain pointer-events-none"
+          style={{ width: '400px', height: '400px' }}
+        />
+        <div className="max-w-4xl mx-auto relative z-10">
           <div className="gold-divider mb-16" />
-
           <div className="space-y-8 text-cream leading-relaxed text-lg md:text-xl">
-            {geneza.split('\n\n').map((paragraph, i) => (
-              <p key={i} className="font-sans">
+            {paragraphs.map((paragraph, i) => (
+              <p
+                key={i}
+                className={`font-serif ${i === 0 ? 'drop-cap' : ''}`}
+              >
                 {paragraph}
               </p>
             ))}
           </div>
-
           <div className="wine-line mt-16" />
           <div className="gold-divider mt-8" />
         </div>
       </section>
 
-      <RitualSection />
-      <QuotesSection />
-      <FilozofiaSection />
-      <ToastSection />
+      <SectionDivider from="#3D0C11" to="#0a0505" />
+
+      {/* Ritual */}
+      <section id="rytuał">
+        <RitualSection />
+      </section>
+
+      <SectionDivider from="#0a0505" to="#0a0505" />
+
+      {/* Quotes */}
+      <section id="glosy">
+        <QuotesSection />
+      </section>
+
+      <SectionDivider from="#0a0505" to="#1a0a0d" />
+
+      {/* Filozofia */}
+      <section id="filozofia">
+        <FilozofiaSection />
+      </section>
+
+      <SectionDivider from="#1a0a0d" to="#0a0505" />
+
+      {/* Wyrocznia */}
+      <section id="wyrocznia">
+        <WyroczniaWiniarska />
+      </section>
+
+      <SectionDivider from="#1a0a0d" to="#0a0505" />
+
+      {/* Slownik */}
+      <section id="slownik">
+        <SlownikBiesiadnika />
+      </section>
+
+      <SectionDivider from="#0a0505" to="#3D0C11" />
+
+      {/* Toast */}
+      <section id="toast">
+        <ToastSection />
+      </section>
 
       {/* Footer */}
-      <footer className="py-16 px-6 bg-background border-t border-gold/10">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="font-serif text-3xl md:text-4xl text-gold mb-6">
-            Polewaj. Wypij. Polewaj. Wypij.
-          </p>
-          <p className="text-sm text-cream-dim mb-4">
-            Strona humorystyczna. Pij odpowiedzialnie.
-          </p>
-          <p className="text-xs text-cream-dim">
-            &copy; 2026
-          </p>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
-  )
+  );
 }
