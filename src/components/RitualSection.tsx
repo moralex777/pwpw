@@ -115,8 +115,15 @@ export default function RitualSection() {
   );
 
   return (
-    <section ref={sectionRef} className="relative h-[500vh] bg-background">
+    <section ref={sectionRef} className="relative h-[500vh] bg-transparent">
       <div className="sticky top-0 h-screen overflow-hidden">
+
+        {/* Photorealistic wine cellar background */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: 'url(/images/hero-bg.jpg)', backgroundPositionY: '60%' }}
+        />
+        <div className="absolute inset-0" style={{ background: 'rgba(10,5,5,0.75)' }} />
 
         {/* Ambient wine stain */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">

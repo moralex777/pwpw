@@ -96,7 +96,7 @@ export default function FilozofiaSection() {
   });
 
   return (
-    <section ref={sectionRef} className="relative h-[400vh] bg-wine-dark">
+    <section ref={sectionRef} className="relative h-[400vh] bg-transparent">
       <div className="sticky top-0 h-screen overflow-hidden">
         {/* Ambient wine stain */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">

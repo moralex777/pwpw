@@ -15,7 +15,7 @@ function scrollTo(id: string) {
 
 export default function SiteFooter() {
   return (
-    <footer className="py-20 px-6 bg-background border-t border-gold/10 relative overflow-hidden">
+    <footer className="py-20 px-6 border-t border-gold/10 relative overflow-hidden" style={{ background: '#0a0505' }}>
       {/* Vine border top */}
       <div
         className="absolute top-0 left-0 right-0 h-px"

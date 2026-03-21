@@ -17,41 +17,47 @@ export default function HeroSection() {
   const subtitleY = useTransform(scrollYProgress, [0, 0.4], ['0%', '20%']);
 
   return (
-    <div ref={ref} className="relative h-screen overflow-hidden">
+    <section id="hero" ref={ref} className="relative h-screen overflow-hidden">
 
-      {/* Static fallback — always visible, hero.svg centred */}
+      {/* Photorealistic fallback background — wine cellar */}
       <div
-        className="absolute inset-0 bg-cover bg-center scale-110"
-        style={{ backgroundImage: 'url(/images/hero.svg)', backgroundColor: '#1a0a0d' }}
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: 'url(/images/hero-bg.jpg)',
+          backgroundColor: '#1a0a0d',
+          transform: 'scale(1.05)',
+        }}
       />
 
-      {/* Video on top — if it loads it replaces the fallback visually */}
+      {/* Video on top with poster — if GPU renders it, great; if not, hero-bg shows */}
       <motion.div className="absolute inset-0" style={{ y }}>
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="w-full h-full object-cover scale-110"
+          poster="/images/hero-bg.jpg"
+          className="w-full h-full object-cover"
+          style={{ transform: 'scale(1.05)' }}
         >
           <source src="/video/hero.mp4" type="video/mp4" />
           <source src="/video/hero.webm" type="video/webm" />
         </video>
       </motion.div>
 
-      {/* Vignette overlay — light centre, dark edges/bottom only */}
+      {/* Vignette overlay — transparent centre, dark edges + strong bottom gradient for text legibility */}
       <div
         className="absolute inset-0"
         style={{
           background: `
-            radial-gradient(ellipse 70% 55% at 50% 45%, rgba(10,5,5,0) 0%, rgba(10,5,5,0.28) 100%),
+            radial-gradient(ellipse 80% 60% at 50% 40%, rgba(10,5,5,0) 0%, rgba(10,5,5,0.22) 100%),
             linear-gradient(
               180deg,
-              rgba(10,5,5,0.10) 0%,
-              rgba(10,5,5,0.00) 20%,
-              rgba(10,5,5,0.00) 55%,
-              rgba(10,5,5,0.50) 82%,
-              rgba(10,5,5,0.85) 100%
+              rgba(10,5,5,0.15) 0%,
+              rgba(10,5,5,0.00) 18%,
+              rgba(10,5,5,0.00) 50%,
+              rgba(10,5,5,0.55) 80%,
+              rgba(10,5,5,0.90) 100%
             )
           `,
         }}
@@ -64,9 +70,10 @@ export default function HeroSection() {
       >
         <motion.p
           initial={{ opacity: 0, letterSpacing: '0.4em' }}
-          animate={{ opacity: 0.6, letterSpacing: '0.5em' }}
+          animate={{ opacity: 0.7, letterSpacing: '0.5em' }}
           transition={{ duration: 1.4, delay: 0.2, ease: 'easeOut' }}
           className="font-sans text-xs text-gold-dim tracking-[0.5em] uppercase mb-6 select-none"
+          style={{ textShadow: '0 1px 12px rgba(10,5,5,0.9)' }}
         >
           Est. MMXXVI
         </motion.p>
@@ -76,7 +83,7 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           className="font-serif text-6xl md:text-8xl lg:text-9xl text-gold gold-shimmer leading-tight"
-          style={{ textShadow: '0 2px 40px rgba(10,5,5,0.8), 0 0 80px rgba(197,165,90,0.15)' }}
+          style={{ textShadow: '0 2px 40px rgba(10,5,5,0.9), 0 0 80px rgba(197,165,90,0.2)' }}
         >
           Polewaj. Wypij.<br />
           Polewaj. Wypij.
@@ -91,13 +98,13 @@ export default function HeroSection() {
         >
           <p
             className="font-serif text-2xl md:text-3xl text-cream italic"
-            style={{ textShadow: '0 2px 20px rgba(10,5,5,0.9)' }}
+            style={{ textShadow: '0 2px 20px rgba(10,5,5,0.95)' }}
           >
             In Vino Veritas
           </p>
           <p
             className="font-sans text-base md:text-xl text-cream-dim tracking-[0.3em] uppercase"
-            style={{ textShadow: '0 2px 16px rgba(10,5,5,0.9)' }}
+            style={{ textShadow: '0 2px 16px rgba(10,5,5,0.95)' }}
           >
             Ergo Bibamus
           </p>
@@ -120,6 +127,6 @@ export default function HeroSection() {
           <div className="wine-line" style={{ height: '24px', opacity: 0.5 }} />
         </motion.div>
       </motion.div>
-    </div>
+    </section>
   );
 }

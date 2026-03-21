@@ -110,7 +110,7 @@ export default function ToastSection() {
       animate={shakeControls}
       onClick={handleToast}
       className="min-h-[85vh] flex flex-col items-center justify-center relative cursor-pointer select-none overflow-hidden"
-      style={{ background: 'radial-gradient(ellipse at center, #3D0C11 0%, #0a0505 70%)' }}
+      style={{ background: 'transparent' }}
     >
       {/* Ambient stain */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">

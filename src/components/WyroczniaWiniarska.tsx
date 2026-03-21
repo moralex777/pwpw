@@ -86,7 +86,7 @@ export default function WyroczniaWiniarska() {
   }, [askOracle]);
 
   return (
-    <section className="py-28 px-6 bg-wine-dark relative overflow-hidden">
+    <section className="py-28 px-6 bg-transparent relative overflow-hidden">
       {/* Ambient */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="wine-stain" style={{ width: '600px', height: '600px', opacity: 0.07 }} />

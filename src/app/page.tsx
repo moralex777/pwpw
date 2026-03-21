@@ -26,12 +26,23 @@ export default function Home() {
       <ScrollNavDots />
 
       {/* Hero */}
-      <section id="hero">
-        <HeroSection />
-      </section>
+      <HeroSection />
 
       {/* Geneza */}
-      <section id="geneza" className="py-32 px-6 bg-wine-deep relative overflow-hidden">
+      <section id="geneza" className="py-32 px-6 relative overflow-hidden">
+        {/* Photorealistic vineyard background */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: 'url(/images/geneza-bg.jpg)',
+            backgroundColor: '#0a0505',
+          }}
+        />
+        {/* Dark overlay for text legibility */}
+        <div
+          className="absolute inset-0"
+          style={{ background: 'rgba(10,5,5,0.78)' }}
+        />
         <div
           className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 wine-stain pointer-events-none"
           style={{ width: '400px', height: '400px' }}
@@ -53,7 +64,7 @@ export default function Home() {
         </div>
       </section>
 
-      <SectionDivider from="#3D0C11" to="#0a0505" />
+      <SectionDivider from="rgba(10,5,5,0.95)" to="#0a0505" />
 
       {/* Ritual */}
       <section id="rytuał">
@@ -63,36 +74,107 @@ export default function Home() {
       <SectionDivider from="#0a0505" to="#0a0505" />
 
       {/* Quotes */}
-      <section id="glosy">
-        <QuotesSection />
+      <section id="glosy" className="relative">
+        {/* Photorealistic quotes background */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: 'url(/images/quotes-bg.jpg)',
+            backgroundColor: '#0a0505',
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'rgba(10,5,5,0.82)' }}
+        />
+        <div className="relative z-10">
+          <QuotesSection />
+        </div>
       </section>
 
-      <SectionDivider from="#0a0505" to="#1a0a0d" />
+      <SectionDivider from="rgba(10,5,5,0.95)" to="#1a0a0d" />
 
       {/* Filozofia */}
-      <section id="filozofia">
-        <FilozofiaSection />
+      <section id="filozofia" className="relative">
+        {/* Photorealistic scriptorium background */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: 'url(/images/filozofia-bg.jpg)',
+            backgroundColor: '#1a0a0d',
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'rgba(10,5,5,0.80)' }}
+        />
+        <div className="relative z-10">
+          <FilozofiaSection />
+        </div>
       </section>
 
-      <SectionDivider from="#1a0a0d" to="#0a0505" />
+      <SectionDivider from="rgba(10,5,5,0.95)" to="#0a0505" />
 
       {/* Wyrocznia */}
-      <section id="wyrocznia">
-        <WyroczniaWiniarska />
+      <section id="wyrocznia" className="relative">
+        {/* Photorealistic oracle background */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: 'url(/images/oracle-bg.jpg)',
+            backgroundColor: '#0a0505',
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'rgba(10,5,5,0.80)' }}
+        />
+        <div className="relative z-10">
+          <WyroczniaWiniarska />
+        </div>
       </section>
 
-      <SectionDivider from="#1a0a0d" to="#0a0505" />
+      <SectionDivider from="rgba(10,5,5,0.95)" to="#0a0505" />
 
       {/* Slownik */}
-      <section id="slownik">
-        <SlownikBiesiadnika />
+      <section id="slownik" className="relative">
+        {/* Filozofia bg reused for dictionary — dark library feel */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: 'url(/images/filozofia-bg.jpg)',
+            backgroundColor: '#0a0505',
+            backgroundPositionY: '70%',
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'rgba(10,5,5,0.83)' }}
+        />
+        <div className="relative z-10">
+          <SlownikBiesiadnika />
+        </div>
       </section>
 
-      <SectionDivider from="#0a0505" to="#3D0C11" />
+      <SectionDivider from="rgba(10,5,5,0.95)" to="#3D0C11" />
 
       {/* Toast */}
-      <section id="toast">
-        <ToastSection />
+      <section id="toast" className="relative">
+        {/* Photorealistic clinking glasses background */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: 'url(/images/toast-bg.jpg)',
+            backgroundColor: '#3D0C11',
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: 'rgba(10,5,5,0.72)' }}
+        />
+        <div className="relative z-10">
+          <ToastSection />
+        </div>
       </section>
 
       {/* Footer */}

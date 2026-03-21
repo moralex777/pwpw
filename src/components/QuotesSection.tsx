@@ -49,7 +49,7 @@ export default function QuotesSection() {
 
   return (
     <section
-      className="py-24 bg-background relative overflow-hidden"
+      className="py-24 bg-transparent relative overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

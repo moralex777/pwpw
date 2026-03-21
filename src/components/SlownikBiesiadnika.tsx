@@ -88,7 +88,7 @@ export default function SlownikBiesiadnika() {
   }, []);
 
   return (
-    <section className="py-28 px-6 bg-background relative overflow-hidden">
+    <section className="py-28 px-6 bg-transparent relative overflow-hidden">
       {/* Ambient */}
       <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 wine-stain pointer-events-none"
         style={{ width: '400px', height: '400px' }} />
