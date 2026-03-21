@@ -1,9 +1,11 @@
 'use client';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 export default function HeroSection() {
   const ref = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoVisible, setVideoVisible] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -16,22 +18,66 @@ export default function HeroSection() {
   const titleScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.92]);
   const subtitleY = useTransform(scrollYProgress, [0, 0.4], ['0%', '20%']);
 
+  // Check if video is actually rendering visible frames (not black)
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const checkVideoContent = () => {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = 32;
+        canvas.height = 18;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        ctx.drawImage(video, 0, 0, 32, 18);
+        const data = ctx.getImageData(8, 4, 16, 10).data;
+        let total = 0;
+        let count = 0;
+        for (let i = 0; i < data.length; i += 4) {
+          total += data[i] + data[i + 1] + data[i + 2];
+          count += 3;
+        }
+        const avg = total / count;
+        // Only show video if average brightness > 8 (not pure black)
+        setVideoVisible(avg > 8);
+      } catch {
+        setVideoVisible(false);
+      }
+    };
+
+    const handleCanPlay = () => {
+      // Check after a short delay to let the first frame render
+      setTimeout(checkVideoContent, 300);
+    };
+
+    video.addEventListener('canplaythrough', handleCanPlay);
+    if (video.readyState >= 3) handleCanPlay();
+
+    return () => video.removeEventListener('canplaythrough', handleCanPlay);
+  }, []);
+
   return (
     <section id="hero" ref={ref} className="relative h-screen overflow-hidden">
 
-      {/* Photorealistic fallback background — wine cellar */}
+      {/* Photorealistic wine cellar — always visible as fallback */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: 'url(/images/hero-bg.jpg)',
           backgroundColor: '#1a0a0d',
           transform: 'scale(1.05)',
+          transformOrigin: 'center center',
         }}
       />
 
-      {/* Video on top with poster — if GPU renders it, great; if not, hero-bg shows */}
-      <motion.div className="absolute inset-0" style={{ y }}>
+      {/* Video — only shown when it renders non-black frames */}
+      <motion.div
+        className="absolute inset-0"
+        style={{ y, opacity: videoVisible ? 1 : 0 }}
+      >
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
@@ -45,7 +91,7 @@ export default function HeroSection() {
         </video>
       </motion.div>
 
-      {/* Vignette overlay — transparent centre, dark edges + strong bottom gradient for text legibility */}
+      {/* Vignette overlay — transparent centre, dark edges + bottom gradient */}
       <div
         className="absolute inset-0"
         style={{
