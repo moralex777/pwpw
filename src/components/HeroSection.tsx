@@ -18,7 +18,14 @@ export default function HeroSection() {
 
   return (
     <div ref={ref} className="relative h-screen overflow-hidden">
-      {/* Video background with parallax */}
+
+      {/* Static fallback — always visible, hero.svg centred */}
+      <div
+        className="absolute inset-0 bg-cover bg-center scale-110"
+        style={{ backgroundImage: 'url(/images/hero.svg)', backgroundColor: '#1a0a0d' }}
+      />
+
+      {/* Video on top — if it loads it replaces the fallback visually */}
       <motion.div className="absolute inset-0" style={{ y }}>
         <video
           autoPlay
@@ -32,8 +39,23 @@ export default function HeroSection() {
         </video>
       </motion.div>
 
-      {/* Vignette overlay — clear centre, dark edges */}
-      <div className="hero-gradient absolute inset-0" />
+      {/* Vignette overlay — light centre, dark edges/bottom only */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `
+            radial-gradient(ellipse 70% 55% at 50% 45%, rgba(10,5,5,0) 0%, rgba(10,5,5,0.28) 100%),
+            linear-gradient(
+              180deg,
+              rgba(10,5,5,0.10) 0%,
+              rgba(10,5,5,0.00) 20%,
+              rgba(10,5,5,0.00) 55%,
+              rgba(10,5,5,0.50) 82%,
+              rgba(10,5,5,0.85) 100%
+            )
+          `,
+        }}
+      />
 
       {/* Content */}
       <motion.div
@@ -81,7 +103,7 @@ export default function HeroSection() {
           </p>
         </motion.div>
 
-        {/* Scroll indicator — wine drop */}
+        {/* Wine-drop scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
