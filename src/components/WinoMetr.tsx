@@ -42,10 +42,9 @@ export default function WinoMetr() {
 
   const visible = scrollY > 200
 
-  // The bowl path spans roughly y=8 to y=42 (34 units).
-  // Fill rect starts from the bottom of the bowl, its height proportional to progress.
-  const fillHeight = (scrollProgress / 100) * 34
-  const fillY = 42 - fillHeight
+  // Bowl spans y=6 to y=38 (32 units of fill space)
+  const fillHeight = (scrollProgress / 100) * 32
+  const fillY = 38 - fillHeight
 
   return (
     <div
@@ -66,53 +65,99 @@ export default function WinoMetr() {
       onClick={() => setLabelVisible((v) => !v)}
     >
       <svg
-        width={36}
-        height={60}
-        viewBox="0 0 36 56"
+        width={32}
+        height={56}
+        viewBox="0 0 32 56"
         fill="none"
-        xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
           <clipPath id="wine-bowl-clip">
-            <path d="M 6 8 Q 4 20 8 30 L 14 42 L 22 42 L 28 30 Q 32 20 30 8 Z" />
+            <path d="M 5 4 Q 2 6 2 12 Q 2 22 6 28 Q 9 33 12 36 L 13 38 L 19 38 L 20 36 Q 23 33 26 28 Q 30 22 30 12 Q 30 6 27 4 Z" />
           </clipPath>
+          {/* Wine surface highlight */}
+          <linearGradient id="wine-fill-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#8B1A2B" />
+            <stop offset="30%" stopColor="#722F37" />
+            <stop offset="100%" stopColor="#4A1520" />
+          </linearGradient>
+          {/* Glass reflection */}
+          <linearGradient id="glass-sheen" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="rgba(255,255,255,0.15)" />
+            <stop offset="50%" stopColor="rgba(255,255,255,0)" />
+            <stop offset="100%" stopColor="rgba(255,255,255,0.08)" />
+          </linearGradient>
         </defs>
 
-        {/* Wine fill */}
+        {/* Wine fill with gradient */}
         <rect
           x="0"
           y={fillY}
-          width="36"
+          width="32"
           height={fillHeight}
-          fill="#722F37"
+          fill="url(#wine-fill-grad)"
           clipPath="url(#wine-bowl-clip)"
           style={{ transition: 'y 0.15s ease, height 0.15s ease' }}
         />
 
-        {/* Glass bowl outline */}
+        {/* Wine surface line (meniscus) */}
+        {scrollProgress > 5 && (
+          <ellipse
+            cx="16"
+            cy={fillY + 1}
+            rx={Math.min(12, 4 + scrollProgress * 0.08)}
+            ry="1.5"
+            fill="#9B2335"
+            clipPath="url(#wine-bowl-clip)"
+            style={{ transition: 'cy 0.15s ease' }}
+          />
+        )}
+
+        {/* Glass bowl — elegant curved shape */}
         <path
-          d="M 6 8 Q 4 20 8 30 L 14 42 L 22 42 L 28 30 Q 32 20 30 8 Z"
+          d="M 5 4 Q 2 6 2 12 Q 2 22 6 28 Q 9 33 12 36 L 13 38 L 19 38 L 20 36 Q 23 33 26 28 Q 30 22 30 12 Q 30 6 27 4"
           stroke="#C5A55A"
-          strokeWidth={1}
+          strokeWidth={0.8}
           fill="none"
         />
 
-        {/* Stem */}
-        <line x1={18} y1={42} x2={18} y2={52} stroke="#C5A55A" strokeWidth={1} />
+        {/* Glass rim */}
+        <path
+          d="M 5 4 Q 16 2 27 4"
+          stroke="#C5A55A"
+          strokeWidth={0.8}
+          fill="none"
+        />
 
-        {/* Base */}
-        <line x1={12} y1={52} x2={24} y2={52} stroke="#C5A55A" strokeWidth={1} />
+        {/* Glass reflection highlight */}
+        <path
+          d="M 7 6 Q 5 10 5 16 Q 5 22 7 26"
+          stroke="rgba(255,255,255,0.12)"
+          strokeWidth={0.6}
+          fill="none"
+        />
+
+        {/* Stem — thin and elegant */}
+        <line x1={16} y1={38} x2={16} y2={48} stroke="#C5A55A" strokeWidth={0.8} />
+
+        {/* Base — curved foot */}
+        <path
+          d="M 9 48 Q 12 50 16 50 Q 20 50 23 48"
+          stroke="#C5A55A"
+          strokeWidth={0.8}
+          fill="none"
+        />
+        <line x1={9} y1={48} x2={23} y2={48} stroke="#C5A55A" strokeWidth={0.6} />
       </svg>
 
       {labelVisible && (
         <span
           style={{
-            fontFamily: 'monospace',
-            fontSize: '10px',
+            fontFamily: 'var(--font-geist-mono), monospace',
+            fontSize: '9px',
             color: '#b8b0a3',
             textAlign: 'center',
             marginTop: '2px',
-            transition: 'opacity 0.3s ease',
+            letterSpacing: '0.05em',
           }}
         >
           {getLabel(scrollProgress)}

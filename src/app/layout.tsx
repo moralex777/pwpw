@@ -22,6 +22,13 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://polewajwypijpolewajwypij.pl"),
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: '32x32' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
   title: "Polewaj. Wypij. Polewaj. Wypij.",
   description:
     "In Vino Veritas. Filozofia biesiadowania w literaturze i kulturze.",
