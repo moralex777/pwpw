@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     url: "https://polewajwypijpolewajwypij.pl",
     images: [
       {
-        url: "/images/og.png",
+        url: "/images/og.webp",
         width: 1200,
         height: 630,
         alt: "Polewaj Wypij Polewaj Wypij",
@@ -64,7 +64,7 @@ export default function RootLayout({
     <html
       lang="pl"
       suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable}`}
+      className={`dark ${geistSans.variable} ${geistMono.variable} ${playfair.variable}`}
     >
       <body suppressHydrationWarning>
         <PWARegister />

@@ -1,118 +1,47 @@
-'use client'
-
-import { useRef } from 'react'
-import { motion, useScroll, useTransform, MotionValue } from 'framer-motion'
-import { filozofia } from '@/lib/content'
-
-function splitIntoWords(text: string) {
-  return text.split(' ').map((word, i, arr) => ({
-    word: word + (i < arr.length - 1 ? '\u00A0' : ''),
-    index: i,
-    total: arr.length,
-  }))
-}
-
-function useWordOpacity(
-  progress: MotionValue<number>,
-  principleIndex: number,
-  wordIndex: number,
-  totalWords: number
-) {
-  const start = principleIndex * 0.25
-  const wordFraction = wordIndex / (totalWords - 1 || 1)
-  return useTransform(
-    progress,
-    [start + wordFraction * 0.2, start + wordFraction * 0.25],
-    [0.15, 1]
-  )
-}
-
-// Fixed set of word components to avoid hooks-in-loops
-function WordSpan({
-  word,
-  progress,
-  principleIndex,
-  wordIndex,
-  totalWords,
-}: {
-  word: string
-  progress: MotionValue<number>
-  principleIndex: number
-  wordIndex: number
-  totalWords: number
-}) {
-  const opacity = useWordOpacity(progress, principleIndex, wordIndex, totalWords)
-  return <motion.span style={{ opacity }}>{word}</motion.span>
-}
-
-function PrincipleCard({
-  principleIndex,
-  progress,
-}: {
-  principleIndex: number
-  progress: MotionValue<number>
-}) {
-  const principle = filozofia[principleIndex]
-  const words = splitIntoWords(principle.text)
-
-  const start = principleIndex * 0.25
-  const end = (principleIndex + 1) * 0.25
-  const opacity = useTransform(
-    progress,
-    [Math.max(0, start - 0.05), start, end - 0.05, Math.min(1, end)],
-    [0, 1, 1, 0]
-  )
-
-  return (
-    <motion.div
-      className="absolute inset-0 flex items-center justify-center px-8 md:px-16 lg:px-24 pointer-events-none"
-      style={{ opacity }}
-    >
-      <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-[180px_1fr] gap-8 lg:gap-16 items-start">
-        <div className="text-gold text-6xl md:text-7xl lg:text-8xl font-serif leading-none">
-          {principle.number}
-        </div>
-        <div className="space-y-4">
-          <h3 className="text-gold text-2xl md:text-3xl font-serif mb-6">
-            {principle.title}
-          </h3>
-          <p className="text-cream text-lg md:text-xl leading-relaxed">
-            {words.map((w, i) => (
-              <WordSpan
-                key={`${principleIndex}-${i}`}
-                word={w.word}
-                progress={progress}
-                principleIndex={principleIndex}
-                wordIndex={i}
-                totalWords={words.length}
-              />
-            ))}
-          </p>
-        </div>
-      </div>
-    </motion.div>
-  )
-}
+import { filozofia } from "@/lib/content";
+import { Card } from "@/components/ui/card";
 
 export default function FilozofiaSection() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end start'],
-  })
-
   return (
-    <section ref={sectionRef} className="relative h-[300vh] bg-wine-dark">
-      <div className="sticky top-0 h-screen flex items-center justify-center">
-        <h2 className="absolute top-12 left-8 md:left-16 text-gold text-4xl md:text-5xl font-serif">
-          Filozofia
-        </h2>
+    <section id="filozofia" className="bg-wine-dark py-24 md:py-32 px-6">
+      <h2 className="font-serif text-4xl md:text-5xl text-gold text-center mb-16">
+        Filozofia
+      </h2>
 
-        <PrincipleCard principleIndex={0} progress={scrollYProgress} />
-        <PrincipleCard principleIndex={1} progress={scrollYProgress} />
-        <PrincipleCard principleIndex={2} progress={scrollYProgress} />
-        <PrincipleCard principleIndex={3} progress={scrollYProgress} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        {filozofia.map((item, i) => (
+          <Card
+            key={i}
+            className="relative overflow-hidden aspect-[4/5] rounded-xl border-0 ring-0 p-0 gap-0"
+          >
+            {/* Background Image */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`/images/filo-${i + 1}.webp`}
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+
+            {/* Roman Numeral */}
+            <span className="font-serif text-5xl md:text-6xl text-gold/30 absolute top-4 left-6 z-10">
+              {item.number}
+            </span>
+
+            {/* Content */}
+            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-10">
+              <h3 className="font-serif text-2xl text-gold mb-2">
+                {item.title}
+              </h3>
+              <p className="text-sm md:text-base text-cream/90 leading-relaxed">
+                {item.text}
+              </p>
+            </div>
+          </Card>
+        ))}
       </div>
     </section>
-  )
+  );
 }

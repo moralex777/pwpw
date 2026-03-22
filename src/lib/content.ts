@@ -22,6 +22,7 @@ export const quotes: Quote[] = [
     text: "Ergo bibamus! Pijmy zatem, bo pora nadeszła!",
     author: "Johann Wolfgang von Goethe",
     source: "Ergo bibamus (1810)",
+    original: "Więc pijmy! Bo pora nadeszła!",
   },
   {
     text: "Miło szaleć, kiedy czas po temu, miło użyć świata, póki służy, bo kiedy do nas starość przyjdzie, nie wygna jej i Venus i Bachus.",
@@ -37,11 +38,6 @@ export const quotes: Quote[] = [
     text: "Upijajcie się! Winem, poezją, cnotą, czym chcecie. Ale upijajcie się!",
     author: "Charles Baudelaire",
     source: "Enivrez-vous, Poematy prozą (1869)",
-  },
-  {
-    text: "Wino jest najzdrowszym i najbardziej higienicznym ze wszystkich napojów.",
-    author: "Louis Pasteur",
-    source: "Études sur le vin (1866)",
   },
   {
     text: "Jeden kielich za zdrowie, drugi za wesołość, trzeci za sen spokojny.",
@@ -80,6 +76,72 @@ export const filozofia = [
     number: "IV",
     title: "Wypij",
     text: "Czwarty akt jest aktem filozofii. Wypij i zrozum, że cykl jest nieskończony, jak sama biesiada. Polewaj. Wypij. Polewaj. Wypij. Ad infinitum, ad vinum.",
+  },
+];
+
+export interface SlownikEntry {
+  term: string;
+  phonetic: string;
+  definition: string;
+  latin: string;
+}
+
+export const slownik: SlownikEntry[] = [
+  {
+    term: "Biesiada",
+    phonetic: "bʲe.ˈɕa.da",
+    definition:
+      "Uczta, na której jedzenie jest pretekstem, wino jest katalizatorem, a rozmowa jest celem. Nie mylić z kolacją, która kończy się przed północą.",
+    latin: "convivium",
+  },
+  {
+    term: "Kielich",
+    phonetic: "ˈkʲe.lʲix",
+    definition:
+      "Naczynie o szlachetnej formie, przeznaczone do wznoszenia toastów i podkreślania dramaturgii momentu. Pusty kielich jest afrontem wobec towarzystwa.",
+    latin: "calix",
+  },
+  {
+    term: "Polewać",
+    phonetic: "pɔ.ˈlɛ.vat͡ɕ",
+    definition:
+      "Akt napełniania kielicha płynem szlachetnym. Czynność wymagająca hojności ducha i pewności ręki. Pierwszy z dwóch filarów filozofii PWPW.",
+    latin: "fundere",
+  },
+  {
+    term: "Wypić",
+    phonetic: "ˈvɨ.pʲit͡ɕ",
+    definition:
+      "Akt konsumpcji zawartości kielicha. Wymaga odwagi, bowiem wino nie znosi wahania. Drugi z dwóch filarów filozofii PWPW.",
+    latin: "bibere",
+  },
+  {
+    term: "Toast",
+    phonetic: "tɔast",
+    definition:
+      "Rytualne wzniesienie kielicha ku czci idei, osoby lub chwili. Poprawny toast wymaga kontaktu wzrokowego, pełnego kielicha i szczerego zamiaru.",
+    latin: "propinare",
+  },
+  {
+    term: "Sommelier",
+    phonetic: "sɔ.mɛ.ˈlʲje",
+    definition:
+      "Kapłan winnicy, który potrafi odróżnić rocznik od roku produkcji i terroir od terenu. W kontekście PWPW — każdy, kto otworzył więcej niż jedną butelkę tego wieczoru.",
+    latin: "pincerna",
+  },
+  {
+    term: "Terroir",
+    phonetic: "tɛ.ˈʁwaʁ",
+    definition:
+      "Suma warunków środowiskowych nadających winu charakter. W polskim odpowiedniku — to, co sprawia, że wino z Zielonej Góry smakuje inaczej niż z Bordeaux.",
+    latin: "solum",
+  },
+  {
+    term: "Biesiadnik",
+    phonetic: "bʲe.ˈɕad.ɲik",
+    definition:
+      "Uczestnik biesiady. Osoba o sercu otwartym, kielichu pełnym i apetycie niegasnącym. Synonim dobrego towarzystwa.",
+    latin: "conviva",
   },
 ];
 

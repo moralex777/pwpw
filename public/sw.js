@@ -1,8 +1,8 @@
-const CACHE_NAME = 'pwpw-v1'
+const CACHE_NAME = 'pwpw-v5'
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
-  '/images/hero.svg',
+  '/images/hero.webp',
 ]
 
 // Install event - precache static assets
@@ -53,7 +53,7 @@ self.addEventListener('fetch', (event) => {
   // Cache-first for static assets
   if (
     request.destination === 'image' ||
-    request.destination === 'video' ||
+    request.destination === 'audio' ||
     request.destination === 'font' ||
     request.destination === 'script' ||
     request.destination === 'style'
