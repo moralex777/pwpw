@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://polewajwypijpolewajwypij.pl"),
   icons: {
     icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
       { url: '/favicon.ico', sizes: '32x32' },
+      { url: '/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },
     ],
     apple: '/apple-touch-icon.png',
   },
