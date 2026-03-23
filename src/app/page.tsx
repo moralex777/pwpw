@@ -1,16 +1,26 @@
 export default function Home() {
   return (
     <main className="fixed inset-0 bg-black">
-      <picture>
-        <source media="(max-width: 768px)" srcSet="/images/banner-mobile.webp" />
-        <source media="(min-width: 769px)" srcSet="/images/banner.webp" />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/images/banner.webp"
-          alt="Alkohol zabiera więcej niż daje"
-          className="h-full w-full object-cover"
-        />
-      </picture>
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        poster="/images/banner.webp"
+        className="h-full w-full object-cover hidden md:block"
+      >
+        <source src="/video.mp4" type="video/mp4" />
+      </video>
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        poster="/images/banner-mobile.webp"
+        className="h-full w-full object-cover md:hidden"
+      >
+        <source src="/video-mobile.mp4" type="video/mp4" />
+      </video>
     </main>
   );
 }

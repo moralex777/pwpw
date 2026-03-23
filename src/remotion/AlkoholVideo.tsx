@@ -4,28 +4,25 @@ const WORDS = ["ALKOHOL", "ZABIERA", "WIĘCEJ", "NIŻ", "DAJE"];
 
 export const AlkoholVideo: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps, durationInFrames } = useVideoConfig();
+  const { fps, durationInFrames, width, height } = useVideoConfig();
+  const isMobile = height > width;
 
-  // Each word gets ~3 seconds: 0.5s fade in, 2s hold, 0.5s fade out
-  const wordDuration = Math.floor((durationInFrames - fps * 2) / WORDS.length); // reserve 2s for final fade
+  const wordDuration = Math.floor((durationInFrames - fps * 2) / WORDS.length);
   const fadeFrames = Math.floor(fps * 0.5);
+  const fontSize = Math.floor(width * 0.08);
 
   return (
     <AbsoluteFill style={{ backgroundColor: "black" }}>
       <Img
-        src={staticFile("images/banner.webp")}
+        src={staticFile(isMobile ? "images/banner-mobile.webp" : "images/banner.webp")}
         style={{
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          objectPosition: "center 35%",
+          objectPosition: "center center",
         }}
       />
-      <AbsoluteFill
-        style={{
-          backgroundColor: "rgba(0,0,0,0.4)",
-        }}
-      />
+      <AbsoluteFill style={{ backgroundColor: "rgba(0,0,0,0.4)" }} />
       <AbsoluteFill
         style={{
           justifyContent: "center",
@@ -38,12 +35,7 @@ export const AlkoholVideo: React.FC = () => {
 
           const opacity = interpolate(
             frame,
-            [
-              wordStart,
-              wordStart + fadeFrames,
-              wordEnd - fadeFrames,
-              wordEnd,
-            ],
+            [wordStart, wordStart + fadeFrames, wordEnd - fadeFrames, wordEnd],
             [0, 1, 1, 0],
             { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
           );
@@ -55,7 +47,7 @@ export const AlkoholVideo: React.FC = () => {
                 position: "absolute",
                 opacity,
                 color: "white",
-                fontSize: 120,
+                fontSize,
                 fontWeight: 900,
                 fontFamily: "'Bebas Neue', 'Arial Narrow', Impact, sans-serif",
                 letterSpacing: "0.05em",
