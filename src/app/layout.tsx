@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
+import { Bebas_Neue } from "next/font/google";
 import "./globals.css";
+
+const bebasNeue = Bebas_Neue({
+  weight: "400",
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-bebas",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://polewajwypijpolewajwypij.pl"),
@@ -15,7 +22,7 @@ export const metadata: Metadata = {
     url: "https://polewajwypijpolewajwypij.pl",
     images: [
       {
-        url: "/images/banner.png",
+        url: "/images/banner.webp",
         width: 1024,
         height: 576,
         alt: "Alkohol zabiera więcej niż daje",
@@ -30,8 +37,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pl">
-      <body className="bg-black">
+    <html lang="pl" className={bebasNeue.variable}>
+      <body className="bg-black overflow-hidden">
         {children}
       </body>
     </html>

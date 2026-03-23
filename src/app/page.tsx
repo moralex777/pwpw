@@ -1,16 +1,16 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
     <main className="fixed inset-0 bg-black">
-      <Image
-        src="/images/banner.png"
-        alt="Alkohol zabiera więcej niż daje"
-        fill
-        priority
-        className="object-cover"
-        sizes="100vw"
-      />
+      <picture>
+        <source media="(max-width: 768px)" srcSet="/images/banner-mobile.webp" />
+        <source media="(min-width: 769px)" srcSet="/images/banner.webp" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/banner.webp"
+          alt="Alkohol zabiera więcej niż daje"
+          className="h-full w-full object-cover"
+        />
+      </picture>
     </main>
   );
 }
