@@ -1,64 +1,26 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { Playfair_Display } from "next/font/google";
 import "./globals.css";
-import PWARegister from "@/components/PWARegister";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin", "latin-ext"],
-  style: ["normal", "italic"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://polewajwypijpolewajwypij.pl"),
-  icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: '32x32' },
-      { url: '/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },
-    ],
-    apple: '/apple-touch-icon.png',
-  },
-  title: "Polewaj. Wypij. Polewaj. Wypij.",
+  title: "Alkohol zabiera więcej niż daje",
   description:
-    "In Vino Veritas. Filozofia biesiadowania w literaturze i kulturze.",
-  manifest: "/manifest.json",
+    "Alkohol niszczy zdrowie, rodziny i życie. Uzależnienie. Samotność. Choroba.",
   openGraph: {
-    title: "Polewaj. Wypij. Polewaj. Wypij.",
+    title: "Alkohol zabiera więcej niż daje",
     description:
-      "In Vino Veritas. Filozofia biesiadowania w literaturze i kulturze.",
+      "Alkohol niszczy zdrowie, rodziny i życie. Uzależnienie. Samotność. Choroba.",
     type: "website",
     locale: "pl_PL",
     url: "https://polewajwypijpolewajwypij.pl",
     images: [
       {
-        url: "/images/og.webp",
-        width: 1200,
-        height: 630,
-        alt: "Polewaj Wypij Polewaj Wypij",
+        url: "/images/banner.png",
+        width: 1024,
+        height: 576,
+        alt: "Alkohol zabiera więcej niż daje",
       },
     ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Polewaj. Wypij. Polewaj. Wypij.",
-    description: "In Vino Veritas. Filozofia biesiadowania.",
-  },
-  other: {
-    "apple-mobile-web-app-capable": "yes",
-    "apple-mobile-web-app-status-bar-style": "black-translucent",
-    "apple-mobile-web-app-title": "PWPW",
-    "theme-color": "#722F37",
   },
 };
 
@@ -68,13 +30,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="pl"
-      suppressHydrationWarning
-      className={`dark ${geistSans.variable} ${geistMono.variable} ${playfair.variable}`}
-    >
-      <body suppressHydrationWarning>
-        <PWARegister />
+    <html lang="pl">
+      <body className="bg-black">
         {children}
       </body>
     </html>

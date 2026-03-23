@@ -1,7 +1,16 @@
+import Image from "next/image";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center justify-center">
-      <p className="text-neutral-500 text-sm">Strona w przebudowie.</p>
+    <main className="relative flex min-h-screen items-center justify-center bg-black">
+      <Image
+        src="/images/banner.png"
+        alt="Alkohol zabiera więcej niż daje"
+        fill
+        priority
+        className="object-contain"
+        sizes="100vw"
+      />
     </main>
   );
 }
